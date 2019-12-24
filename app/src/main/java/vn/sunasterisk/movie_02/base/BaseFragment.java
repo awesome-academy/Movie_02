@@ -23,13 +23,13 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initCoponents();
+        initCoponents(view);
         registerListener();
     }
 
     protected abstract void registerListener();
 
-    protected abstract void initCoponents();
+    protected abstract void initCoponents(View view);
 
     protected abstract int getLayoutId();
 
