@@ -16,5 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".screen.home.HomeActivity" />
+        <activity android:name=".screen.search.SearchActivity"/>
     </application>
 </manifest>

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_backgroud">
+
     <FrameLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
@@ -18,5 +19,5 @@
         android:background="@color/color_gray"
         app:itemIconTint="@color/color_while"
         app:itemTextColor="@color/color_while"
-        app:menu="@menu/menu_button_navigation"/>
+        app:menu="@menu/menu_button_navigation" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
