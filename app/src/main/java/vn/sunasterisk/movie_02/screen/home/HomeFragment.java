@@ -30,7 +30,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.image_home_search:
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                Intent intent = SearchActivity.getIntent(getContext());
                 startActivity(intent);
                 break;
             default:

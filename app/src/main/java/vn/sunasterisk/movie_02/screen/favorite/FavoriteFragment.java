@@ -25,7 +25,7 @@ public class FavoriteFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.image_favorite_search:
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                Intent intent = SearchActivity.getIntent(getContext());
                 startActivity(intent);
                 break;
             default:

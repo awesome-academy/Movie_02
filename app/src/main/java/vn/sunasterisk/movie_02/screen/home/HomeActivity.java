@@ -1,9 +1,6 @@
 package vn.sunasterisk.movie_02.screen.home;
 
-import android.content.Intent;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,13 +11,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import vn.sunasterisk.movie_02.R;
 import vn.sunasterisk.movie_02.base.BaseActivity;
 import vn.sunasterisk.movie_02.screen.favorite.FavoriteFragment;
-import vn.sunasterisk.movie_02.screen.search.SearchActivity;
+import vn.sunasterisk.movie_02.screen.genres.GenresFragment;
 
 public class HomeActivity extends BaseActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
     private BottomNavigationView mBottomNavigationView;
     private FavoriteFragment mFavoriteFragment;
     private HomeFragment mHomeFragment;
+    private GenresFragment mGenresFragment;
 
     @Override
     protected void registerListener() {
@@ -52,7 +50,7 @@ public class HomeActivity extends BaseActivity
             case R.id.nav_home:
                 openHomeScreen();
                 return true;
-            case R.id.nav_menu:
+            case R.id.nav_genres:
                 openMenuScreen();
                 return true;
             default:
@@ -61,6 +59,8 @@ public class HomeActivity extends BaseActivity
     }
 
     private void openMenuScreen() {
+        mGenresFragment = new GenresFragment();
+        addFragment(mGenresFragment);
     }
 
     private void openHomeScreen() {
