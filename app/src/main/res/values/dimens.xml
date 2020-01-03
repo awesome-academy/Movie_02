@@ -10,4 +10,6 @@
     <dimen name="dp_1">1dp</dimen>
     <dimen name="sp_20">20sp</dimen>
     <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_100">100dp</dimen>
+    <dimen name="dp_150">150dp</dimen>
 </resources>
