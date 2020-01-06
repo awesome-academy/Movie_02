@@ -10,10 +10,10 @@ import com.google.android.material.tabs.TabLayout;
 
 import vn.sunasterisk.movie_02.R;
 import vn.sunasterisk.movie_02.base.BaseFragment;
-import vn.sunasterisk.movie_02.screen.genres.tablayout.NowPlayingFragment;
-import vn.sunasterisk.movie_02.screen.genres.tablayout.PopularFragment;
-import vn.sunasterisk.movie_02.screen.genres.tablayout.TopRateFragment;
-import vn.sunasterisk.movie_02.screen.genres.tablayout.UpcomingFragment;
+import vn.sunasterisk.movie_02.screen.genres.tablayout.nowplaying.NowPlayingFragment;
+import vn.sunasterisk.movie_02.screen.genres.tablayout.popular.PopularFragment;
+import vn.sunasterisk.movie_02.screen.genres.tablayout.toprate.TopRateFragment;
+import vn.sunasterisk.movie_02.screen.genres.tablayout.upcoming.UpComingFragment;
 import vn.sunasterisk.movie_02.screen.genres.tablayout.ViewPagerAdapter;
 import vn.sunasterisk.movie_02.screen.search.SearchActivity;
 
@@ -48,7 +48,7 @@ public class GenresFragment extends BaseFragment
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
         adapter.addFragment(new PopularFragment(), getString(R.string.text_popular));
         adapter.addFragment(new NowPlayingFragment(), getString(R.string.text_now_playing));
-        adapter.addFragment(new UpcomingFragment(), getString(R.string.text_upcoming));
+        adapter.addFragment(new UpComingFragment(), getString(R.string.text_upcoming));
         adapter.addFragment(new TopRateFragment(), getString(R.string.text_top_rate));
         mViewPager.setAdapter(adapter);
     }

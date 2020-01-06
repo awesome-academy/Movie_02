@@ -1,4 +1,4 @@
-package vn.sunasterisk.movie_02.screen.genres.tablayout;
+package vn.sunasterisk.movie_02.screen.genres.tablayout.popular;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +25,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
     @Override
     public PopularAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_popular, parent, false);
+                .inflate(R.layout.item_trailer, parent, false);
         return new ViewHolder(view);
     }
 

@@ -1,6 +1,6 @@
 package vn.sunasterisk.movie_02.data.model;
 
-public class NowPlaying {
+public class UpComing {
     private String mPopularity;
     private String mVideo;
     private String mPosterPath;
@@ -11,12 +11,12 @@ public class NowPlaying {
     private String mOverView;
     private String mReleaseDate;
 
-    public NowPlaying() {
+    public UpComing() {
     }
 
-    public NowPlaying(String popularity, String video, String posterPath, String id,
-                      String backdropPath, String title, String voteAverage, String overView,
-                      String releaseDate) {
+    public UpComing(String popularity, String video, String posterPath, String id,
+                    String backdropPath, String title, String voteAverage, String overView,
+                    String releaseDate) {
         mPopularity = popularity;
         mVideo = video;
         mPosterPath = posterPath;
