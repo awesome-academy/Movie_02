@@ -1,8 +1,8 @@
-package vn.sunasterisk.movie_02.screen.genres.tablayout;
+package vn.sunasterisk.movie_02.screen.genres.tablayout.popular;
 
 import android.view.View;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -13,6 +13,7 @@ import vn.sunasterisk.movie_02.constant.Constant;
 import vn.sunasterisk.movie_02.data.model.Popular;
 import vn.sunasterisk.movie_02.data.source.MovieDataSource;
 import vn.sunasterisk.movie_02.data.source.remote.FetchPopularFromURL;
+import vn.sunasterisk.movie_02.screen.genres.tablayout.popular.PopularAdapter;
 
 public class PopularFragment extends BaseFragment
         implements MovieDataSource.OnFetchDataListener<Popular> {
@@ -41,11 +42,9 @@ public class PopularFragment extends BaseFragment
     @Override
     public void onFetchDataSuccess(List<Popular> populars) {
         mAdapter = new PopularAdapter(populars);
-        LinearLayoutManager manager = new LinearLayoutManager(
-                getContext(),
-                RecyclerView.VERTICAL,
-                false
-        );
+        /*LinearLayoutManager manager =
+                new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);*/
+        GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
         mRecyclerPopular.setLayoutManager(manager);
         mRecyclerPopular.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
