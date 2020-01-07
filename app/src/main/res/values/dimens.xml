@@ -15,4 +15,10 @@
     <dimen name="dp_120">120dp</dimen>
     <dimen name="dp_50">50dp</dimen>
     <dimen name="sp_12">12sp</dimen>
+    <dimen name="dp_250">250dp</dimen>
+    <dimen name="sp_16">16sp</dimen>
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_200">200dp</dimen>
+    <dimen name="dp_300">300dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
 </resources>

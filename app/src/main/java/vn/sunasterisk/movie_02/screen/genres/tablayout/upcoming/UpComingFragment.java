@@ -1,6 +1,7 @@
 package vn.sunasterisk.movie_02.screen.genres.tablayout.upcoming;
 
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,14 +10,17 @@ import java.util.List;
 
 import vn.sunasterisk.movie_02.R;
 import vn.sunasterisk.movie_02.base.BaseFragment;
-import vn.sunasterisk.movie_02.constant.Constant;
-import vn.sunasterisk.movie_02.data.model.UpComing;
-import vn.sunasterisk.movie_02.data.source.MovieDataSource;
-import vn.sunasterisk.movie_02.data.source.remote.FetchUpComingFromURL;
+import vn.sunasterisk.movie_02.data.model.TrailerMovie;
+import vn.sunasterisk.movie_02.data.repository.GenresReponsitory;
+import vn.sunasterisk.movie_02.screen.genres.GenresContact;
+import vn.sunasterisk.movie_02.screen.genres.GenresPresenter;
+import vn.sunasterisk.movie_02.screen.genres.tablayout.GenresAdapter;
 
-public class UpComingFragment extends BaseFragment implements MovieDataSource.OnFetchDataListener<UpComing> {
-    private RecyclerView mRecyclerView;
-    private UpComingAdapter mAdapter;
+public class UpComingFragment extends BaseFragment
+        implements GenresContact.view, GenresAdapter.OnClickUpComingListener {
+    private RecyclerView mRecyclerUpComing;
+    private GenresAdapter mAdapter;
+    private GenresPresenter mPresenter;
 
     @Override
     protected void registerListener() {
@@ -25,11 +29,15 @@ public class UpComingFragment extends BaseFragment implements MovieDataSource.On
 
     @Override
     protected void initCoponents(View view) {
-        mRecyclerView = view.findViewById(R.id.recycler_up_coming);
+        mRecyclerUpComing = view.findViewById(R.id.recycler_up_coming);
 
-        FetchUpComingFromURL fetchUpComingFromURL = new FetchUpComingFromURL();
-        fetchUpComingFromURL.setListener(this);
-        fetchUpComingFromURL.execute(Constant.BASE_URL + Constant.URL_UP_COMING + Constant.KEY_API);
+        mAdapter = new GenresAdapter(this);
+        GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
+        mRecyclerUpComing.setLayoutManager(manager);
+        mRecyclerUpComing.setAdapter(mAdapter);
+
+        mPresenter = new GenresPresenter(this, GenresReponsitory.getInstance());
+        mPresenter.getUpComingMovie();
     }
 
     @Override
@@ -38,16 +46,18 @@ public class UpComingFragment extends BaseFragment implements MovieDataSource.On
     }
 
     @Override
-    public void onFetchDataSuccess(List<UpComing> data) {
-        mAdapter = new UpComingAdapter(data);
-        GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
+    public void onUpComingClickListener(TrailerMovie upcoming) {
+
+    }
+
+    @Override
+    public void onMovieSucces(List<TrailerMovie> movies) {
+        mAdapter.setData(movies);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onFetchDataFailure(Exception e) {
-
+    public void onMovieFailure(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -10,4 +10,8 @@
     <string name="text_upcoming">upcoming</string>
     <string name="text_top_rate">top rate</string>
     <string name="text_title">Title</string>
+    <string name="text_release_date">Release Date</string>
+    <string name="text_watch">Watch</string>
+    <string name="text_rate">0.0</string>
+    <string name="text_add_farvorite">Add Farvorite</string>
 </resources>

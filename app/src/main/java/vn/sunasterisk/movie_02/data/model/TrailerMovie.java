@@ -1,6 +1,8 @@
 package vn.sunasterisk.movie_02.data.model;
 
-public class Popular {
+import vn.sunasterisk.movie_02.utils.StringUtils;
+
+public class TrailerMovie {
     private String mPopularity;
     private String mVideo;
     private String mPosterPath;
@@ -11,12 +13,12 @@ public class Popular {
     private String mOverView;
     private String mReleaseDate;
 
-    public Popular() {
+    public TrailerMovie() {
     }
 
-    public Popular(String popularity, String video, String posterPath, String id,
-                   String backdropPath, String title, String voteAverage, String overView,
-                   String releaseDate) {
+    public TrailerMovie(String popularity, String video, String posterPath, String id,
+                        String backdropPath, String title, String voteAverage, String overView,
+                        String releaseDate) {
         mPopularity = popularity;
         mVideo = video;
         mPosterPath = posterPath;
@@ -26,6 +28,10 @@ public class Popular {
         mVoteAverage = voteAverage;
         mOverView = overView;
         mReleaseDate = releaseDate;
+    }
+
+    public String getMovieImageApi() {
+        return StringUtils.getImageApi(mPosterPath);
     }
 
     public String getPopularity() {

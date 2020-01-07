@@ -1,6 +1,7 @@
 package vn.sunasterisk.movie_02.screen.genres.tablayout.toprate;
 
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,14 +10,17 @@ import java.util.List;
 
 import vn.sunasterisk.movie_02.R;
 import vn.sunasterisk.movie_02.base.BaseFragment;
-import vn.sunasterisk.movie_02.constant.Constant;
-import vn.sunasterisk.movie_02.data.model.TopRate;
-import vn.sunasterisk.movie_02.data.source.MovieDataSource;
-import vn.sunasterisk.movie_02.data.source.remote.FetchTopRateFromURL;
+import vn.sunasterisk.movie_02.data.model.TrailerMovie;
+import vn.sunasterisk.movie_02.data.repository.GenresReponsitory;
+import vn.sunasterisk.movie_02.screen.genres.GenresContact;
+import vn.sunasterisk.movie_02.screen.genres.GenresPresenter;
+import vn.sunasterisk.movie_02.screen.genres.tablayout.GenresAdapter;
 
-public class TopRateFragment extends BaseFragment implements MovieDataSource.OnFetchDataListener<TopRate> {
-    private RecyclerView mRecyclerView;
-    private TopRateAdapter mAdapter;
+public class TopRateFragment extends BaseFragment
+        implements GenresContact.view, GenresAdapter.OnClickTopRateListener {
+    private RecyclerView mRecyclerTopRate;
+    private GenresAdapter mAdapter;
+    private GenresPresenter mPresenter;
 
     @Override
     protected void registerListener() {
@@ -25,11 +29,15 @@ public class TopRateFragment extends BaseFragment implements MovieDataSource.OnF
 
     @Override
     protected void initCoponents(View view) {
-        mRecyclerView = view.findViewById(R.id.recycler_top_rate);
+        mRecyclerTopRate = view.findViewById(R.id.recycler_top_rate);
 
-        FetchTopRateFromURL fetchTopRateFromURL = new FetchTopRateFromURL();
-        fetchTopRateFromURL.setListener(this);
-        fetchTopRateFromURL.execute(Constant.BASE_URL + Constant.URL_TOP_RATE + Constant.KEY_API);
+        mAdapter = new GenresAdapter(this);
+        GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
+        mRecyclerTopRate.setLayoutManager(manager);
+        mRecyclerTopRate.setAdapter(mAdapter);
+
+        mPresenter = new GenresPresenter(this, GenresReponsitory.getInstance());
+        mPresenter.getTopRateMovie();
     }
 
     @Override
@@ -38,16 +46,18 @@ public class TopRateFragment extends BaseFragment implements MovieDataSource.OnF
     }
 
     @Override
-    public void onFetchDataSuccess(List<TopRate> data) {
-        mAdapter = new TopRateAdapter(data);
-        GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
+    public void onTopRateClickListener(TrailerMovie toprate) {
+
+    }
+
+    @Override
+    public void onMovieSucces(List<TrailerMovie> movies) {
+        mAdapter.setData(movies);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onFetchDataFailure(Exception e) {
-
+    public void onMovieFailure(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }

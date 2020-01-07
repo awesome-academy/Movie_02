@@ -1,6 +1,7 @@
 package vn.sunasterisk.movie_02.screen.genres.tablayout.nowplaying;
 
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,15 +10,17 @@ import java.util.List;
 
 import vn.sunasterisk.movie_02.R;
 import vn.sunasterisk.movie_02.base.BaseFragment;
-import vn.sunasterisk.movie_02.constant.Constant;
-import vn.sunasterisk.movie_02.data.model.NowPlaying;
-import vn.sunasterisk.movie_02.data.source.MovieDataSource;
-import vn.sunasterisk.movie_02.data.source.remote.FetchNowPlayingFromURL;
-import vn.sunasterisk.movie_02.screen.genres.tablayout.nowplaying.NowPlayingAdapter;
+import vn.sunasterisk.movie_02.data.model.TrailerMovie;
+import vn.sunasterisk.movie_02.data.repository.GenresReponsitory;
+import vn.sunasterisk.movie_02.screen.genres.GenresContact;
+import vn.sunasterisk.movie_02.screen.genres.GenresPresenter;
+import vn.sunasterisk.movie_02.screen.genres.tablayout.GenresAdapter;
 
-public class NowPlayingFragment extends BaseFragment implements MovieDataSource.OnFetchDataListener<NowPlaying> {
+public class NowPlayingFragment extends BaseFragment
+        implements GenresContact.view, GenresAdapter.OnClickNowPlayingListener {
     private RecyclerView mRecyclerView;
-    private NowPlayingAdapter mAdapter;
+    private GenresAdapter mAdapter;
+    private GenresPresenter mPresenter;
 
     @Override
     protected void registerListener() {
@@ -28,9 +31,13 @@ public class NowPlayingFragment extends BaseFragment implements MovieDataSource.
     protected void initCoponents(View view) {
         mRecyclerView = view.findViewById(R.id.recycler_now_playing);
 
-        FetchNowPlayingFromURL fetchNowPlayingFromURL = new FetchNowPlayingFromURL();
-        fetchNowPlayingFromURL.setListener(this);
-        fetchNowPlayingFromURL.execute(Constant.BASE_URL + Constant.URL_NOW_PLAYING + Constant.KEY_API);
+        mAdapter = new GenresAdapter(this);
+        GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mAdapter);
+
+        mPresenter = new GenresPresenter(this, GenresReponsitory.getInstance());
+        mPresenter.getNowPlayingMovie();
     }
 
     @Override
@@ -39,16 +46,18 @@ public class NowPlayingFragment extends BaseFragment implements MovieDataSource.
     }
 
     @Override
-    public void onFetchDataSuccess(List<NowPlaying> data) {
-        mAdapter = new NowPlayingAdapter(data);
-        GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
+    public void onMovieSucces(List<TrailerMovie> movies) {
+        mAdapter.setData(movies);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onFetchDataFailure(Exception e) {
+    public void onMovieFailure(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClickNowPlayingListener(TrailerMovie nowPlaying) {
 
     }
 }

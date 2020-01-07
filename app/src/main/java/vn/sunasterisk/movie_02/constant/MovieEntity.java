@@ -2,13 +2,14 @@ package vn.sunasterisk.movie_02.constant;
 
 import androidx.annotation.StringDef;
 
-@StringDef({TopRateEntity.TOPRATE, TopRateEntity.POPULARITY,
-        TopRateEntity.VIDEO, TopRateEntity.POSTERPATH,
-        TopRateEntity.ID, TopRateEntity.BACKDROPPATH,
-        TopRateEntity.TITLE, TopRateEntity.VOTEAVERAGE,
-        TopRateEntity.OVERVIEW, TopRateEntity.RELEASEDATE})
-public @interface TopRateEntity {
-    String TOPRATE = "results";
+@StringDef({MovieEntity.MOVIE, MovieEntity.POPULARITY,
+        MovieEntity.VIDEO, MovieEntity.POSTERPATH,
+        MovieEntity.ID, MovieEntity.BACKDROPPATH,
+        MovieEntity.TITLE, MovieEntity.VOTEAVERAGE,
+        MovieEntity.OVERVIEW, MovieEntity.RELEASEDATE})
+
+public @interface MovieEntity {
+    String MOVIE = "results";
     String POPULARITY = "popularity";
     String VIDEO = "video";
     String POSTERPATH = "poster_path";
