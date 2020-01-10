@@ -13,4 +13,5 @@ public class Constant {
     public static final String URL_NOW_PLAYING = "now_playing?api_key=";
     public static final String URL_UP_COMING = "upcoming?api_key=";
     public static final String URL_TOP_RATE = "top_rated?api_key=";
+    public static final String BASE_URL_IMAGE = "https://image.tmdb.org/t/p/w500/";
 }

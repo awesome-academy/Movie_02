@@ -1,6 +1,7 @@
 package vn.sunasterisk.movie_02.screen.genres.tablayout.popular;
 
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,16 +10,17 @@ import java.util.List;
 
 import vn.sunasterisk.movie_02.R;
 import vn.sunasterisk.movie_02.base.BaseFragment;
-import vn.sunasterisk.movie_02.constant.Constant;
-import vn.sunasterisk.movie_02.data.model.Popular;
-import vn.sunasterisk.movie_02.data.source.MovieDataSource;
-import vn.sunasterisk.movie_02.data.source.remote.FetchPopularFromURL;
-import vn.sunasterisk.movie_02.screen.genres.tablayout.popular.PopularAdapter;
+import vn.sunasterisk.movie_02.data.model.TrailerMovie;
+import vn.sunasterisk.movie_02.data.repository.GenresReponsitory;
+import vn.sunasterisk.movie_02.screen.genres.tablayout.GenresAdapter;
+import vn.sunasterisk.movie_02.screen.genres.GenresContact;
+import vn.sunasterisk.movie_02.screen.genres.GenresPresenter;
 
 public class PopularFragment extends BaseFragment
-        implements MovieDataSource.OnFetchDataListener<Popular> {
+        implements GenresContact.view, GenresAdapter.OnClickPoplarsListener {
     private RecyclerView mRecyclerPopular;
-    private PopularAdapter mAdapter;
+    private GenresAdapter mAdapter;
+    private GenresPresenter mPresenter;
 
     @Override
     protected void registerListener() {
@@ -29,9 +31,13 @@ public class PopularFragment extends BaseFragment
     protected void initCoponents(View view) {
         mRecyclerPopular = view.findViewById(R.id.recycler_popular);
 
-        FetchPopularFromURL fetchPopularFromURL = new FetchPopularFromURL();
-        fetchPopularFromURL.setListener(this);
-        fetchPopularFromURL.execute(Constant.BASE_URL + Constant.URL_POPULAR + Constant.KEY_API);
+        mAdapter = new GenresAdapter(this);
+        GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
+        mRecyclerPopular.setLayoutManager(manager);
+        mRecyclerPopular.setAdapter(mAdapter);
+
+        mPresenter = new GenresPresenter(this, GenresReponsitory.getInstance());
+        mPresenter.getPopularMovie();
     }
 
     @Override
@@ -40,18 +46,18 @@ public class PopularFragment extends BaseFragment
     }
 
     @Override
-    public void onFetchDataSuccess(List<Popular> populars) {
-        mAdapter = new PopularAdapter(populars);
-        /*LinearLayoutManager manager =
-                new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);*/
-        GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
-        mRecyclerPopular.setLayoutManager(manager);
-        mRecyclerPopular.setAdapter(mAdapter);
+    public void onPoplarsClickListener(TrailerMovie popular) {
+
+    }
+
+    @Override
+    public void onMovieSucces(List<TrailerMovie> movies) {
+        mAdapter.setData(movies);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onFetchDataFailure(Exception e) {
-
+    public void onMovieFailure(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }

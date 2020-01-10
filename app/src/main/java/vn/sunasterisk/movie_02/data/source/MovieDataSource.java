@@ -8,4 +8,14 @@ public interface MovieDataSource {
 
         void onFetchDataFailure(Exception e);
     }
+
+    interface FetchGenresDataSoure {
+        void getNowPlayingData(MovieDataSource.OnFetchDataListener listener);
+
+        void getTopRateData(MovieDataSource.OnFetchDataListener listener);
+
+        void getUpComingData(MovieDataSource.OnFetchDataListener listener);
+
+        void getPopularData(MovieDataSource.OnFetchDataListener listener);
+    }
 }
