@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,29 +19,14 @@ import vn.sunasterisk.movie_02.data.model.TrailerMovie;
 
 public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.ViewHolder> {
     private List<TrailerMovie> mGenres;
-    private OnClickNowPlayingListener mNowPlayingListener;
-    private OnClickPoplarsListener mPoplarsListener;
-    private OnClickTopRateListener mTopRateListener;
-    private OnClickUpComingListener mUpComingListener;
+    private OnClickGenresListener mGenresListener;
 
     public void setData(List<TrailerMovie> data) {
         mGenres = data;
     }
 
-    public GenresAdapter(OnClickPoplarsListener onClickPoplarsListener) {
-        mPoplarsListener = onClickPoplarsListener;
-    }
-
-    public GenresAdapter(OnClickNowPlayingListener onClickNowPlayingListener) {
-        mNowPlayingListener = onClickNowPlayingListener;
-    }
-
-    public GenresAdapter(OnClickTopRateListener onClickTopRateListener) {
-        mTopRateListener = onClickTopRateListener;
-    }
-
-    public GenresAdapter(OnClickUpComingListener onClickUpComingListener) {
-        mUpComingListener = onClickUpComingListener;
+    public GenresAdapter(OnClickGenresListener onClickNowPlayingListener) {
+        mGenresListener = onClickNowPlayingListener;
     }
 
     public GenresAdapter(List<TrailerMovie> data) {
@@ -57,9 +43,9 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TrailerMovie nowPlaying = mGenres.get(position);
-        String url = nowPlaying.getMovieImageApi();
-        holder.mTextTitle.setText(nowPlaying.getTitle());
+        TrailerMovie genres = mGenres.get(position);
+        String url = genres.getMovieImageApi();
+        holder.mTextTitle.setText(genres.getTitle());
         Glide.with(holder.itemView.getContext()).load(url)
                 .placeholder(R.drawable.loading_shape)
                 .into(holder.mImageMovie);
@@ -73,27 +59,32 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mTextTitle;
         private ImageView mImageMovie;
+        private LinearLayout mLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            initCoponents();
+            registerListener();
+        }
+
+        private void registerListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    mGenresListener.onClickGenresListener(mGenres.get(position));
+                }
+            });
+        }
+
+        private void initCoponents() {
             mTextTitle = itemView.findViewById(R.id.text_title);
             mImageMovie = itemView.findViewById(R.id.image_movie);
+            mLayout = itemView.findViewById(R.id.view_movie);
         }
     }
 
-    public interface OnClickNowPlayingListener {
-        void onClickNowPlayingListener(TrailerMovie nowPlaying);
-    }
-
-    public interface OnClickPoplarsListener {
-        void onPoplarsClickListener(TrailerMovie popular);
-    }
-
-    public interface OnClickTopRateListener {
-        void onTopRateClickListener(TrailerMovie toprate);
-    }
-
-    public interface OnClickUpComingListener {
-        void onUpComingClickListener(TrailerMovie upcoming);
+    public interface OnClickGenresListener {
+        void onClickGenresListener(TrailerMovie genres);
     }
 }

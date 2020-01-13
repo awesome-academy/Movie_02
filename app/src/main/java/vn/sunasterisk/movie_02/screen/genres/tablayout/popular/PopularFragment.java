@@ -1,5 +1,6 @@
 package vn.sunasterisk.movie_02.screen.genres.tablayout.popular;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -10,14 +11,16 @@ import java.util.List;
 
 import vn.sunasterisk.movie_02.R;
 import vn.sunasterisk.movie_02.base.BaseFragment;
+import vn.sunasterisk.movie_02.constant.MovieEntity;
 import vn.sunasterisk.movie_02.data.model.TrailerMovie;
 import vn.sunasterisk.movie_02.data.repository.GenresReponsitory;
-import vn.sunasterisk.movie_02.screen.genres.tablayout.GenresAdapter;
 import vn.sunasterisk.movie_02.screen.genres.GenresContact;
 import vn.sunasterisk.movie_02.screen.genres.GenresPresenter;
+import vn.sunasterisk.movie_02.screen.genres.tablayout.GenresAdapter;
+import vn.sunasterisk.movie_02.screen.inforshow.ShowInforActivity;
 
 public class PopularFragment extends BaseFragment
-        implements GenresContact.view, GenresAdapter.OnClickPoplarsListener {
+        implements GenresContact.view, GenresAdapter.OnClickGenresListener {
     private RecyclerView mRecyclerPopular;
     private GenresAdapter mAdapter;
     private GenresPresenter mPresenter;
@@ -46,11 +49,6 @@ public class PopularFragment extends BaseFragment
     }
 
     @Override
-    public void onPoplarsClickListener(TrailerMovie popular) {
-
-    }
-
-    @Override
     public void onMovieSucces(List<TrailerMovie> movies) {
         mAdapter.setData(movies);
         mAdapter.notifyDataSetChanged();
@@ -59,5 +57,16 @@ public class PopularFragment extends BaseFragment
     @Override
     public void onMovieFailure(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClickGenresListener(TrailerMovie genres) {
+        Intent intent = ShowInforActivity.getIntent(getContext());
+        intent.putExtra(MovieEntity.TITLE, genres.getTitle());
+        intent.putExtra(MovieEntity.VOTEAVERAGE, genres.getVoteAverage());
+        intent.putExtra(MovieEntity.RELEASEDATE, genres.getReleaseDate());
+        intent.putExtra(MovieEntity.OVERVIEW, genres.getOverView());
+        intent.putExtra(MovieEntity.BACKDROPPATH, genres.getMovieImageBackDropApi());
+        startActivity(intent);
     }
 }

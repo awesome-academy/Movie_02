@@ -1,5 +1,6 @@
 package vn.sunasterisk.movie_02.utils;
 
+import vn.sunasterisk.movie_02.BuildConfig;
 import vn.sunasterisk.movie_02.constant.Constant;
 
 public class StringUtils {
@@ -7,6 +8,6 @@ public class StringUtils {
         return String.format("%s%s", Constant.BASE_URL_IMAGE, path);
     }
     public static String getDataFromURL(String path){
-        return String.format("%s%s%s", Constant.BASE_URL,path,Constant.KEY_API);
+        return String.format("%s%s%s", Constant.BASE_URL,path, BuildConfig.API_KEY);
     }
 }

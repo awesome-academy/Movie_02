@@ -1,5 +1,6 @@
 package vn.sunasterisk.movie_02.screen.genres.tablayout.toprate;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,9 +16,10 @@ import vn.sunasterisk.movie_02.data.repository.GenresReponsitory;
 import vn.sunasterisk.movie_02.screen.genres.GenresContact;
 import vn.sunasterisk.movie_02.screen.genres.GenresPresenter;
 import vn.sunasterisk.movie_02.screen.genres.tablayout.GenresAdapter;
+import vn.sunasterisk.movie_02.screen.inforshow.ShowInforActivity;
 
 public class TopRateFragment extends BaseFragment
-        implements GenresContact.view, GenresAdapter.OnClickTopRateListener {
+        implements GenresContact.view, GenresAdapter.OnClickGenresListener {
     private RecyclerView mRecyclerTopRate;
     private GenresAdapter mAdapter;
     private GenresPresenter mPresenter;
@@ -46,11 +48,6 @@ public class TopRateFragment extends BaseFragment
     }
 
     @Override
-    public void onTopRateClickListener(TrailerMovie toprate) {
-
-    }
-
-    @Override
     public void onMovieSucces(List<TrailerMovie> movies) {
         mAdapter.setData(movies);
         mAdapter.notifyDataSetChanged();
@@ -59,5 +56,11 @@ public class TopRateFragment extends BaseFragment
     @Override
     public void onMovieFailure(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClickGenresListener(TrailerMovie genres) {
+        Intent intent = ShowInforActivity.getIntent(getContext());
+        startActivity(intent);
     }
 }
