@@ -8,42 +8,58 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/layout_appbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_300">
+        android:layout_height="@dimen/dp_230">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/layout_collapsing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:title="@string/text_title">
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="exitUntilCollapsed|scroll"
+            app:title="@string/text_title"
+            app:collapsedTitleTextAppearance="@style/ExpandedAppBar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+                app:layout_collapseMode="pin">
+
+            </androidx.appcompat.widget.Toolbar>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_200"
+                android:layout_height="@dimen/dp_180"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/back_drop_image"
-                    android:layout_width="@dimen/dp_250"
-                    android:layout_height="match_parent" />
+                    android:layout_gravity="center"
+                    android:layout_width="@dimen/dp_220"
+                    android:layout_height="@dimen/dp_150" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/text_title"
+                        android:id="@+id/text_title_infor"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_30"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_alignParentTop="true"
                         android:layout_marginTop="@dimen/dp_10"
-                        android:paddingLeft="@dimen/dp_20"
                         android:text="@string/text_title"
+                        android:textStyle="bold"
+                        android:maxLines="1"
                         android:textColor="@color/color_while"
-                        android:textSize="@dimen/sp_20" />
+                        android:textSize="@dimen/sp_30" />
 
                     <TextView
+                        android:id="@+id/text_vote"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_30"
+                        android:layout_below="@+id/text_title_infor"
                         android:layout_marginTop="@dimen/dp_10"
                         android:drawableLeft="@drawable/ic_star_black_24dp"
                         android:paddingLeft="@dimen/dp_20"
@@ -52,39 +68,53 @@
                         android:textSize="@dimen/sp_20" />
 
                     <TextView
+                        android:id="@+id/text_date"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_30"
+                        android:layout_below="@+id/text_vote"
                         android:layout_marginTop="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_20"
                         android:text="@string/text_release_date"
                         android:textColor="@color/color_while"
                         android:textSize="@dimen/sp_20" />
 
-                    <TextView
+                    <Button
+                        android:id="@+id/button_watch"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_30"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:background="@color/color_while"
-                        android:paddingLeft="@dimen/dp_4"
-                        android:paddingRight="@dimen/dp_4"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_4"
+                        android:layout_alignParentBottom="true"
                         android:text="@string/text_watch"
                         android:textColor="@color/color_gray"
                         android:textSize="@dimen/sp_20" />
 
-                    <TextView
+                    <ImageButton
+                        android:id="@+id/button_add_favorite"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_30"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:background="@color/color_while"
-                        android:paddingLeft="@dimen/dp_4"
-                        android:paddingRight="@dimen/dp_4"
-                        android:text="@string/text_add_farvorite"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_4"
+                        android:src="@drawable/ic_favorite_black_24dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
                         android:textColor="@color/color_gray"
                         android:textSize="@dimen/sp_20" />
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/over_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dp_16"
+            android:text="@string/text_review"
+            android:textSize="@dimen/sp_20" />
+    </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

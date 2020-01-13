@@ -1,6 +1,9 @@
 package vn.sunasterisk.movie_02.screen.genres.tablayout.nowplaying;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -10,17 +13,21 @@ import java.util.List;
 
 import vn.sunasterisk.movie_02.R;
 import vn.sunasterisk.movie_02.base.BaseFragment;
+import vn.sunasterisk.movie_02.constant.MovieEntity;
 import vn.sunasterisk.movie_02.data.model.TrailerMovie;
 import vn.sunasterisk.movie_02.data.repository.GenresReponsitory;
 import vn.sunasterisk.movie_02.screen.genres.GenresContact;
 import vn.sunasterisk.movie_02.screen.genres.GenresPresenter;
 import vn.sunasterisk.movie_02.screen.genres.tablayout.GenresAdapter;
+import vn.sunasterisk.movie_02.screen.inforshow.ShowInforActivity;
 
 public class NowPlayingFragment extends BaseFragment
-        implements GenresContact.view, GenresAdapter.OnClickNowPlayingListener {
+        implements GenresContact.view, GenresAdapter.OnClickGenresListener {
     private RecyclerView mRecyclerView;
     private GenresAdapter mAdapter;
     private GenresPresenter mPresenter;
+    private LinearLayout mLayout;
+    private TextView mTextTitle;
 
     @Override
     protected void registerListener() {
@@ -30,6 +37,8 @@ public class NowPlayingFragment extends BaseFragment
     @Override
     protected void initCoponents(View view) {
         mRecyclerView = view.findViewById(R.id.recycler_now_playing);
+        mLayout = view.findViewById(R.id.view_movie);
+        mTextTitle = view.findViewById(R.id.text_title);
 
         mAdapter = new GenresAdapter(this);
         GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
@@ -57,7 +66,13 @@ public class NowPlayingFragment extends BaseFragment
     }
 
     @Override
-    public void onClickNowPlayingListener(TrailerMovie nowPlaying) {
-
+    public void onClickGenresListener(TrailerMovie genres) {
+        Intent intent = ShowInforActivity.getIntent(getContext());
+        intent.putExtra(MovieEntity.TITLE, genres.getTitle());
+        intent.putExtra(MovieEntity.VOTEAVERAGE, genres.getVoteAverage());
+        intent.putExtra(MovieEntity.RELEASEDATE, genres.getReleaseDate());
+        intent.putExtra(MovieEntity.OVERVIEW, genres.getOverView());
+        intent.putExtra(MovieEntity.BACKDROPPATH, genres.getMovieImageBackDropApi());
+        startActivity(intent);
     }
 }

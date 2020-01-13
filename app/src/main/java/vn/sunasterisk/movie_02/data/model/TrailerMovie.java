@@ -34,6 +34,10 @@ public class TrailerMovie {
         return StringUtils.getImageApi(mPosterPath);
     }
 
+    public String getMovieImageBackDropApi() {
+        return StringUtils.getImageApi(mBackdropPath);
+    }
+
     public String getPopularity() {
         return mPopularity;
     }
