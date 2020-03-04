@@ -2,11 +2,15 @@ package vn.sunasterisk.movie_02.data.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import vn.sunasterisk.movie_02.data.model.TrailerMovie;
 
@@ -55,5 +59,42 @@ public class FavoriteDbHelper extends SQLiteOpenHelper {
     public void deleteTrailer(int id) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(FavoriteContract.FavoriteEntry.TABLE_NAME, FavoriteContract.FavoriteEntry.COLUMN_ID + "=" + id, null);
+    }
+
+    public List<TrailerMovie> getAllTrailer() {
+        String[] columns = {
+                FavoriteContract.FavoriteEntry._ID,
+                FavoriteContract.FavoriteEntry.COLUMN_ID,
+                FavoriteContract.FavoriteEntry.COLUMN_TITLE,
+                FavoriteContract.FavoriteEntry.COLUMN_POSTER_PATH,
+        };
+        String sortOrder = FavoriteContract.FavoriteEntry._ID + " ASC";
+        List<TrailerMovie> movies = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.query(FavoriteContract.FavoriteEntry.TABLE_NAME,
+                columns,
+                null,
+                null,
+                null,
+                null,
+                sortOrder);
+        if (cursor.moveToFirst()) {
+            do {
+                TrailerMovie trailerMovie = new TrailerMovie();
+                trailerMovie.setId(cursor.getString(
+                        cursor.getColumnIndex(FavoriteContract.FavoriteEntry.COLUMN_ID))
+                );
+                trailerMovie.setTitle(cursor.getString(
+                        cursor.getColumnIndex(FavoriteContract.FavoriteEntry.COLUMN_TITLE))
+                );
+                trailerMovie.setPosterPath(cursor.getString(
+                        cursor.getColumnIndex(FavoriteContract.FavoriteEntry.COLUMN_POSTER_PATH))
+                );
+                movies.add(trailerMovie);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return movies;
     }
 }
