@@ -64,6 +64,7 @@ public class PopularFragment extends BaseFragment
         Intent intent = ShowInforActivity.getIntent(getContext());
         intent.putExtra(MovieEntity.TITLE, genres.getTitle());
         intent.putExtra(MovieEntity.VOTEAVERAGE, genres.getVoteAverage());
+        intent.putExtra(MovieEntity.POPULARITY,genres.getPopularity());
         intent.putExtra(MovieEntity.RELEASEDATE, genres.getReleaseDate());
         intent.putExtra(MovieEntity.OVERVIEW, genres.getOverView());
         intent.putExtra(MovieEntity.BACKDROPPATH, genres.getMovieImageBackDropApi());

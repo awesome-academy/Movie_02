@@ -11,6 +11,7 @@ import java.util.List;
 
 import vn.sunasterisk.movie_02.R;
 import vn.sunasterisk.movie_02.base.BaseFragment;
+import vn.sunasterisk.movie_02.constant.MovieEntity;
 import vn.sunasterisk.movie_02.data.model.TrailerMovie;
 import vn.sunasterisk.movie_02.data.repository.GenresReponsitory;
 import vn.sunasterisk.movie_02.screen.genres.GenresContact;
@@ -61,6 +62,12 @@ public class TopRateFragment extends BaseFragment
     @Override
     public void onClickGenresListener(TrailerMovie genres) {
         Intent intent = ShowInforActivity.getIntent(getContext());
+        intent.putExtra(MovieEntity.TITLE, genres.getTitle());
+        intent.putExtra(MovieEntity.VOTEAVERAGE, genres.getVoteAverage());
+        intent.putExtra(MovieEntity.POPULARITY,genres.getPopularity());
+        intent.putExtra(MovieEntity.RELEASEDATE, genres.getReleaseDate());
+        intent.putExtra(MovieEntity.OVERVIEW, genres.getOverView());
+        intent.putExtra(MovieEntity.BACKDROPPATH, genres.getMovieImageBackDropApi());
         startActivity(intent);
     }
 }
