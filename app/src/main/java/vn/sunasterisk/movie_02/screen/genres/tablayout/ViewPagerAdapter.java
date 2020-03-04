@@ -3,12 +3,12 @@ package vn.sunasterisk.movie_02.screen.genres.tablayout;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private final List<Fragment> mFragments = new ArrayList<>();
     private final List<String> mTitle = new ArrayList<>();
 

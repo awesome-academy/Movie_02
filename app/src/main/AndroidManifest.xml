@@ -18,6 +18,6 @@
         </activity>
         <activity android:name=".screen.home.HomeActivity" />
         <activity android:name=".screen.search.SearchActivity" />
-        <activity android:name=".screen.inforshow.ShowInforActivity"/>
+        <activity android:name=".screen.inforshow.ShowInforActivity" />
     </application>
 </manifest>

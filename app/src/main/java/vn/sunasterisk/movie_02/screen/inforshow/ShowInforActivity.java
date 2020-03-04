@@ -16,6 +16,7 @@ public class ShowInforActivity extends BaseActivity {
     private CollapsingToolbarLayout mLayout;
     private TextView mTextTitle;
     private TextView mTextVote;
+    private TextView mTextPopularity;
     private TextView mTextDate;
     private TextView mTextOverView;
     private ImageView mImageMovie;
@@ -30,9 +31,10 @@ public class ShowInforActivity extends BaseActivity {
         mLayout = findViewById(R.id.layout_collapsing);
         mTextTitle = findViewById(R.id.text_title_infor);
         mTextVote = findViewById(R.id.text_vote);
+        mTextPopularity = findViewById(R.id.text_popularity);
         mTextDate = findViewById(R.id.text_date);
-        mTextOverView = findViewById(R.id.over_view);
-        mImageMovie = findViewById(R.id.back_drop_image);
+        mTextOverView = findViewById(R.id.text_over_view);
+        mImageMovie = findViewById(R.id.image_back_drop);
 
         if (getSupportActionBar() != null)
             getSupportActionBar().hide();
@@ -47,6 +49,7 @@ public class ShowInforActivity extends BaseActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra(MovieEntity.TITLE);
         String vote = intent.getStringExtra(MovieEntity.VOTEAVERAGE);
+        String popularity = intent.getStringExtra(MovieEntity.POPULARITY);
         String date = intent.getStringExtra(MovieEntity.RELEASEDATE);
         String overView = intent.getStringExtra(MovieEntity.OVERVIEW);
         String imageURL = intent.getStringExtra(MovieEntity.BACKDROPPATH);
@@ -54,6 +57,7 @@ public class ShowInforActivity extends BaseActivity {
         mLayout.setTitle(title);
         mTextTitle.setText(title);
         mTextVote.setText(vote);
+        mTextPopularity.setText(popularity);
         mTextDate.setText(date);
         mTextOverView.setText(overView);
         Glide.with(ShowInforActivity.this).load(imageURL)

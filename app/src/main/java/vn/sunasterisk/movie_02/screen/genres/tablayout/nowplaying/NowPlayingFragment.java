@@ -69,6 +69,7 @@ public class NowPlayingFragment extends BaseFragment
     public void onClickGenresListener(TrailerMovie genres) {
         Intent intent = ShowInforActivity.getIntent(getContext());
         intent.putExtra(MovieEntity.TITLE, genres.getTitle());
+        intent.putExtra(MovieEntity.POPULARITY,genres.getPopularity());
         intent.putExtra(MovieEntity.VOTEAVERAGE, genres.getVoteAverage());
         intent.putExtra(MovieEntity.RELEASEDATE, genres.getReleaseDate());
         intent.putExtra(MovieEntity.OVERVIEW, genres.getOverView());

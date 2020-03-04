@@ -8,6 +8,7 @@
     <color name="color_orange">#ffa500</color>
     <color name="color_backgroud">#0C0D0F</color>
     <color name="color_purple">#a020f0</color>
-    <color name="color_gray">#3C3B3B</color>
+    <color name="color_gray">#757575</color>
+    <color name="color_green">#64DD17</color>
     <color name="color_while">#FFFFFF</color>
 </resources>
